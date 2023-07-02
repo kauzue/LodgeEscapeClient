@@ -1,5 +1,8 @@
-#include "main.h"
+
+
+#include "winsock_client.h"
 #include "game.h"
+
 
 int main() {
 	SOCKET sock = StartWinsock();

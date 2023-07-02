@@ -127,9 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="default_client.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="recv_client.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="winsock_client.h" />

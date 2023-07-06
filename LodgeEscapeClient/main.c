@@ -11,7 +11,7 @@ int main() {
 		return 0;
 	}
 
-	LoginMenu();
+	sned(sock, LoginMenu(), sizeof(int), 0);
 
 	CloseWinsock(sock);
 	return 0;

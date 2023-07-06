@@ -16,7 +16,7 @@ void LoginMenu()
 	printf("> 회원가입 \n");
 
 	MoveCursor(x, y + 1);
-	printf("  로그인 \n");
+	printf("로그인 \n");
 
     while (true) {
         int key = ControlKey();

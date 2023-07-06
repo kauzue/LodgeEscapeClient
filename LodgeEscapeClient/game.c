@@ -4,7 +4,7 @@
 #include "game.h"
 #include "system.h"
 
-void LoginMenu()
+int LoginMenu()
 {
 	int x = 2;
 	int y = 2;

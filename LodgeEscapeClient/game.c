@@ -42,7 +42,8 @@ void LoginMenu()
             break;
 
         case ENTER:
-            break;
+		return y - 2;
+        	break;
         }
     }
 }

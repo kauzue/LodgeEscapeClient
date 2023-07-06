@@ -10,13 +10,13 @@ void LoginMenu()
 	int y = 2;
 
 	MoveCursor(x - 2, y - 2);
-	printf("·Î±×ÀÎ ¸Ş´º \n \n");
+	printf("ë¡œê·¸ì¸ ë©”ë‰´ \n \n");
 
 	MoveCursor(x - 2, y);
-	printf("> È¸¿ø°¡ÀÔ \n");
+	printf("> íšŒì›ê°€ì… \n");
 
 	MoveCursor(x, y + 1);
-	printf("·Î±×ÀÎ \n");
+	printf("  ë¡œê·¸ì¸ \n");
 
     while (true) {
         int key = ControlKey();

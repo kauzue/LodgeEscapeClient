@@ -4,8 +4,8 @@
 
 #include <WinSock2.h>
 
-#define PORT_NUM 12345
-#define SERVER_IP "192.168.0.105"
+#define PORT_NUM 1252
+#define SERVER_IP "192.168.0.17"
 
 SOCKET StartWinsock();
 void CloseWinsock(SOCKET sock);

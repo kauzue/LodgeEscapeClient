@@ -1,5 +1,3 @@
-
-
 #include "winsock_client.h"
 #include "game.h"
 
@@ -11,7 +9,7 @@ int main() {
 		return 0;
 	}
 
-	sned(sock, LoginMenu(), sizeof(int), 0);
+	send(sock, LoginMenu(), sizeof(int), 0);
 
 	CloseWinsock(sock);
 	return 0;

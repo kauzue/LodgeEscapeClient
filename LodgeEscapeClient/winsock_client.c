@@ -19,7 +19,7 @@ SOCKET StartWinsock()
 
 	int re = 0;
 	re = connect(sock, (struct sockaddr*)&servaddr, sizeof(servaddr));
-	if (re == 1) {
+	if (re != 0) {
 		return -1;
 	}
 

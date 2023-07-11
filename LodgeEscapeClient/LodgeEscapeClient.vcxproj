@@ -128,14 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
-    <ClInclude Include="recv_client.h" />
+    <ClInclude Include="login.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="winsock_client.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.c" />
+    <ClCompile Include="login.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="recv_client.c" />
     <ClCompile Include="system.c" />
     <ClCompile Include="winsock_client.c" />
   </ItemGroup>

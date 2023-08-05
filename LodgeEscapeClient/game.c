@@ -8,83 +8,87 @@ void LoadGame(SOCKET);
 
 void StartGame(SOCKET sock, int num_player)
 {
-	int x, y;
-	int msg_int;
-
-	x = 2;
-	y = 0;
-
-	MoveCursor(x - 2, y);
-	printf("> start game");
-
-	MoveCursor(x, y + 2);
-	printf("load game");
-
-	MoveCursor(x, y + 4);
-	printf("option");
-
-	MoveCursor(x, y + 6);
-	printf("exit");
 
 	while (true) {
-		int key = ControlKey();
 
-		switch (key) {
-		case UP: {
-			if (y > 0) {
-				MoveCursor(x - 2, y);
-				printf(" ");
-				MoveCursor(x - 2, y -= 2);
-				printf(">");
-			}
-			break;
-		}
+		int x, y;
+		int msg_int;
 
-		case DOWN: {
-			if (y < 6) {
-				MoveCursor(x - 2, y);
-				printf(" ");
+		x = 2;
+		y = 0;
 
-				MoveCursor(x - 2, y += 2);
-				printf(">");
-			}
-			break;
-		}
+		MoveCursor(x - 2, y);
+		printf("> start game");
 
-		case ENTER: {
+		MoveCursor(x, y + 2);
+		printf("load game");
 
-			y = y / 2;
+		MoveCursor(x, y + 4);
+		printf("option");
 
-			system("cls");
-			
-			send(sock, &y, sizeof(y), 0);
+		MoveCursor(x, y + 6);
+		printf("exit");
 
-			switch (y) {
+		while (true) {
+			int key = ControlKey();
 
-			case START_GAME: {
-				printf("start game");
+			switch (key) {
+			case UP: {
+				if (y > 0) {
+					MoveCursor(x - 2, y);
+					printf(" ");
+					MoveCursor(x - 2, y -= 2);
+					printf(">");
+				}
 				break;
 			}
 
-			case LOAD_GAME: {
-				LoadGame(sock);
+			case DOWN: {
+				if (y < 6) {
+					MoveCursor(x - 2, y);
+					printf(" ");
+
+					MoveCursor(x - 2, y += 2);
+					printf(">");
+				}
 				break;
 			}
 
-			case OPTION: {
-				printf("option");
-				break;
+			case ENTER: {
+
+				y = y / 2;
+
+				system("cls");
+
+				send(sock, &y, sizeof(y), 0);
+
+				switch (y) {
+
+				case START_GAME: {
+					printf("start game");
+					break;
+				}
+
+				case LOAD_GAME: {
+					LoadGame(sock);
+					break;
+				}
+
+				case OPTION: {
+					printf("option");
+					break;
+				}
+
+				case EXIT: {
+					printf("exit");
+					return;
+					break;
+				}
+
+				}
 			}
 
-			case EXIT: {
-				printf("exit");
-				return;
-				break;
 			}
-
-			}
-		}
-
 		}
 	}
 }

@@ -13,6 +13,7 @@ void StartGame(SOCKET sock, int num_player)
 
 		int x, y;
 		int msg_int;
+		int key = 0;
 
 		x = 2;
 		y = 0;
@@ -29,8 +30,8 @@ void StartGame(SOCKET sock, int num_player)
 		MoveCursor(x, y + 6);
 		printf("exit");
 
-		while (true) {
-			int key = ControlKey();
+		while (key != 4) {
+			key = ControlKey();
 
 			switch (key) {
 			case UP: {
@@ -86,6 +87,8 @@ void StartGame(SOCKET sock, int num_player)
 				}
 
 				}
+
+				break;
 			}
 
 			}
@@ -110,7 +113,7 @@ void LoadGame(SOCKET sock)
 	recv(sock, &msg_int, sizeof(msg_int), 0);
 
 	if (msg_int == 0) {
-		printf("불러올 수 있는 게임 정보가 없습니다.");
+		printf("불러올 수 있는 게임 정보가 없습니다. \n");
 	}
 
 	else {

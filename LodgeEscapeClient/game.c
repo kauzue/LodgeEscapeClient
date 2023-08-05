@@ -122,4 +122,6 @@ void LoadGame(SOCKET sock)
 			printf("스테이지 : %d \n \n", msg_int);
 		}
 	}
+
+	system("pause");
 }

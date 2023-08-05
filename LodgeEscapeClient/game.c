@@ -11,6 +11,8 @@ void StartGame(SOCKET sock, int num_player)
 
 	while (true) {
 
+		system("cls");
+
 		int x, y;
 		int msg_int;
 		int key = 0;

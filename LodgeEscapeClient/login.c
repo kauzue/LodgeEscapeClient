@@ -118,7 +118,7 @@ int LoginMenu(SOCKET sock)
 
                         recv(sock, &msg_int, sizeof(msg_int), 0);
 
-                        if (msg_int != 0) {
+                        if (msg_int == 0) {
                             system("cls");
                             printf("아이디 혹은 비밀번호가 일치하지 않습니다. \n");
                             printf("다시 입력해주세요 \n");
@@ -129,18 +129,19 @@ int LoginMenu(SOCKET sock)
                         else {
                             system("cls");
                         }
-                    } while (msg_int != 0);
+                    } while (!msg_int);
 
                     break;
                 }
 
                 case ESC: {
-                    return y;
+                    return 0;
                 }
                 }
                 y += 10;
             }
             }
-        } 
+        }
     }
+    return msg_int;
 }

@@ -1,11 +1,11 @@
 
-
 #include "winsock_client.h"
 #include "login.h"
 #include "system.h"
+#include "game.h"
 
 int main() {
-	int msg_int;
+	int num_player;
 	InitSystem();
 
 	SOCKET sock = StartWinsock();
@@ -14,10 +14,12 @@ int main() {
 		return 0;
 	}
 
-	msg_int = LoginMenu(sock);
-	if (msg_int == 2) {
+	num_player = LoginMenu(sock);
+	if (num_player == 0) {
 		goto ESC;
 	}
+
+	StartGame(sock, num_player);
 
 	ESC: closesocket(sock);
 	WSACleanup();

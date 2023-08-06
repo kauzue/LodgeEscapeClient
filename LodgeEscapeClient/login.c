@@ -64,7 +64,7 @@ int LoginMenu(SOCKET sock)
 
                 switch (y) {
                 case SIGNUP: {
-                    int same = 0;
+                    int same;
                     int id;
 
                     do {
@@ -105,10 +105,14 @@ int LoginMenu(SOCKET sock)
 
                         if (players_num != 1 && players_num != 2) {
                             system("cls");
-                            printf("1과 2의 중 하나의 숫자를 입력해 주세요.");
+                            printf("1과 2의 중 하나의 숫자를 입력해 주세요. \n");
                             system("pause");
                             system("cls");
                             same++;
+                        }
+
+                        else {
+                            same = 0;
                         }
 
                         send(sock, &same, sizeof(same), 0);

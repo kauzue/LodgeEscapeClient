@@ -72,6 +72,9 @@ int LoginMenu(SOCKET sock)
                         printf("ID : ");
                         scanf("%s", &msg_char);
                         send(sock, msg_char, MAX_MSG_LEN, 0);
+                        if (!strcmp(msg_char, "0")) {
+                            return 0;
+                        }
 
                         recv(sock, &same, sizeof(same), 0);
                         if (same != 0) {
@@ -88,18 +91,28 @@ int LoginMenu(SOCKET sock)
                     printf("Password : ");
                     scanf("%s", &msg_char);
                     send(sock, msg_char, MAX_MSG_LEN, 0);
+                    if (!strcmp(msg_char, "0")) {
+                        return 0;
+                    }
 
                     do {
                         printf("Player Number : ");
                         scanf("%d", &players_num);
                         send(sock, &players_num, sizeof(players_num), 0);
-                        recv(sock, &same, sizeof(same), 0);
-                        if (same != 0) {
+                        if (players_num == 0) {
+                            return 0;
+                        }
+
+                        if (players_num != 1 && players_num != 2) {
                             system("cls");
                             printf("1과 2의 중 하나의 숫자를 입력해 주세요.");
                             system("pause");
                             system("cls");
+                            same++;
                         }
+
+                        send(sock, &same, sizeof(same), 0);
+
                     } while (same);
 
                     system("cls");
@@ -111,10 +124,16 @@ int LoginMenu(SOCKET sock)
                         printf("ID : ");
                         scanf("%s", &msg_char);
                         send(sock, msg_char, MAX_MSG_LEN, 0);
+                        if (!strcmp(msg_char, "0")) {
+                            return 0;
+                        }
 
                         printf("PassWord : ");
                         scanf("%s", &msg_char);
                         send(sock, msg_char, MAX_MSG_LEN, 0);
+                        if (!strcmp(msg_char, "0")) {
+                            return 0;
+                        }
 
                         recv(sock, &msg_int, sizeof(msg_int), 0);
 

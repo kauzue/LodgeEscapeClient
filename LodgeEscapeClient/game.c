@@ -73,7 +73,8 @@ int StartGame(SOCKET sock, int num_player)
 				switch (y) {
 
 				case START_GAME: {
-					printf("start game");
+					printf("start game is developing \n");
+					system("pause");
 					break;
 				}
 

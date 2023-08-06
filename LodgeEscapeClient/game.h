@@ -1,7 +1,10 @@
 #pragma once
 
-enum MAIN { START_GAME, LOAD_GAME, OPTION, EXIT };
+#define NUM_MAX_ENDING 5
 
-void StartGame(SOCKET, int);
+enum MAIN { START_GAME, LOAD_GAME, OPTION, ENDING, EXIT };
+enum OPTION { LOGIN_DATA };
+
+int StartGame(SOCKET, int);
 void FirstPlayer();
 void SecondPlayer();

@@ -5,7 +5,7 @@
 #include "game.h"
 
 int main() {
-	int num_player;
+	int err_player;
 	int login = 0;
 
 	InitSystem();
@@ -18,14 +18,14 @@ int main() {
 	
 	while(!login) {
 
-		num_player = LoginMenu(sock);
-		if (num_player == 0) {
-			goto ESC;
+		err_player = LoginMenu(sock);
+		if (err_player == 0) {
+			break;
 		}
 
-		login = StartGame(sock, num_player);
+		login = StartGame(sock);
 	}
-	ESC: closesocket(sock);
+	closesocket(sock);
 	WSACleanup();
 	return 0;
 }

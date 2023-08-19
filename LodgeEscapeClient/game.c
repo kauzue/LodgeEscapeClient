@@ -10,6 +10,7 @@
 void DefaultPlayer(SOCKET);
 int CreateRoom(SOCKET);
 int FindRoom(SOCKET);
+void WaitRoom(SOCKET);
 void LoadGame(SOCKET);
 int Option(SOCKET);
 void Ending(SOCKET);
@@ -120,7 +121,7 @@ int StartGame(SOCKET sock)
 void DefaultPlayer(SOCKET sock)
 {
 	int x, y;
-	int msg_int;
+	int msg_int = 1;
 
 	x = 2;
 	y = 0;
@@ -131,7 +132,7 @@ void DefaultPlayer(SOCKET sock)
 	MoveCursor(x, y + 2);
 	printf("find room");
 
-	while (true) {
+	while (msg_int > 0) {
 
 		int key = ControlKey();
 
@@ -167,35 +168,25 @@ void DefaultPlayer(SOCKET sock)
 			switch (y) {
 			case CREATE: {
 				msg_int = CreateRoom(sock);
-				if (msg_int = -1) {
-					goto END_DEFAULTPLAYER;
+				if (msg_int == -1) {
+					return;
 				}
 				break;
 			}
 
 			case FIND: {
-				FindRoom(sock);
+				msg_int = FindRoom(sock);
+				if (msg_int == -1) {
+					return;
+				}
 				break;
 			}
-
 			}
+			WaitRoom(sock);
 			break;
 		}
 		}
 	}
-
-	recv(sock, &msg_int, sizeof(msg_int), 0);
-
-	if (msg_int == 1) {
-		FirstPlayer(sock);
-	}
-
-	else {
-		SecondPlayer(sock);
-	}
-
-END_DEFAULTPLAYER:
-	return;
 }
 
 int CreateRoom(SOCKET sock)
@@ -209,7 +200,7 @@ int CreateRoom(SOCKET sock)
 		send(sock, msg_char, sizeof(msg_char), 0);
 		recv(sock, &msg_int, sizeof(msg_int), 0);
 		if (msg_int == -1) {
-			goto END_CREATEROOM;
+			return msg_int;
 		}
 
 		else if (msg_int == 1) {
@@ -224,24 +215,74 @@ int CreateRoom(SOCKET sock)
 	scanf("%d", &msg_int);
 	send(sock, &msg_int, sizeof(msg_int), 0);
 
-	recv(sock, &msg_int, sizeof(msg_int), 0);
-
-END_CREATEROOM:
-	return msg_int;
+	return 0;
 }
 
 int FindRoom(SOCKET sock)
 {
+	char msg_char[MAX_MSG_LEN] = "";
 	int msg_int;
 
 	recv(sock, &msg_int, sizeof(msg_int), 0);
 
 	if (msg_int == 0) {
-		printf("현재 개설되어있는 방이 없습니다.");
+		printf("현재 개설되어있는 방이 없습니다. \n");
+		system("pause");
+		return -1;
 	}
 
-	for (int i = 0; i < msg_int; i++) {
-		printf("방 이름 : ");
+	else {
+		for (int i = 0; i < msg_int; i++) {
+			recv(sock, msg_char, sizeof(msg_char), 0);
+			printf("%d. 방 이름 : %s \n \n", i + 1, msg_char);
+		}
+	}
+
+	printf("방 번호 입력 : ");
+	scanf("%d", &msg_int);
+	msg_int -= 1;
+
+	send(sock, &msg_int, sizeof(msg_int), 0);
+
+	if (msg_int < 0) {
+		return -1;
+	}
+
+	recv(sock, &msg_int, sizeof(msg_int), 0);
+
+	if (msg_int == 1) {
+		system("cls");
+		printf("현재 방은 이미 같은 번호의 플레이어가 있습니다. \n");
+		system("pause");
+		return -1;
+	}
+
+	printf("방 비밀번호 : ");
+	scanf("%d", &msg_int);
+
+	send(sock, &msg_int, sizeof(msg_int), 0);
+	recv(sock, &msg_int, sizeof(msg_int), 0);
+
+	if (msg_int == 0) {
+		system("cls");
+		printf("비밀번호가 다릅니다. \n");
+		system("pause");
+		return -1;
+	}
+
+	return 0;
+}
+
+void WaitRoom(SOCKET sock)
+{
+	int msg_int;
+
+	recv(sock, &msg_int, sizeof(msg_int), 0);
+
+	while (msg_int < 3) {
+		recv(sock, &msg_int, sizeof(msg_int), 0);
+		printf("방에 있는 플레이어 수 1/2 \n");
+		system("pause");
 	}
 }
 

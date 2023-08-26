@@ -4,8 +4,11 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "system.h"
 #include "game.h"
+#include "story.h"
+#include "system.h"
+
+int rogin_player_num;
 
 void DefaultPlayer(SOCKET);
 int CreateRoom(SOCKET);
@@ -148,7 +151,7 @@ void DefaultPlayer(SOCKET sock)
 		}
 
 		case DOWN: {
-			if (y < 8) {
+			if (y < 2) {
 				MoveCursor(x - 2, y);
 				printf(" ");
 
@@ -215,6 +218,8 @@ int CreateRoom(SOCKET sock)
 	scanf("%d", &msg_int);
 	send(sock, &msg_int, sizeof(msg_int), 0);
 
+	recv(sock, &rogin_player_num, sizeof(rogin_player_num), 0);
+
 	return 0;
 }
 
@@ -270,6 +275,8 @@ int FindRoom(SOCKET sock)
 		return -1;
 	}
 
+	recv(sock, &rogin_player_num, sizeof(rogin_player_num), 0);
+
 	return 0;
 }
 
@@ -277,23 +284,25 @@ void WaitRoom(SOCKET sock)
 {
 	int msg_int;
 
+	system("cls");
+	printf("플레이어를 기다리는 중 1/2");
+
+	recv(sock, &msg_int, sizeof(msg_int), 0);
+	printf("test.%d\n", msg_int);
+	system("pause");
+
+	send(sock, &rogin_player_num, sizeof(rogin_player_num), 0);
 	recv(sock, &msg_int, sizeof(msg_int), 0);
 
-	while (msg_int < 3) {
-		recv(sock, &msg_int, sizeof(msg_int), 0);
-		printf("방에 있는 플레이어 수 1/2 \n");
-		system("pause");
+	system("cls");
+
+	if (msg_int == 1) {
+		Chapter1_Player1(sock);
 	}
-}
 
-void FirstPlayer(SOCKET sock)
-{
-
-}
-
-void SecondPlayer(SOCKET sock)
-{
-
+	else {
+		Chapter1_Player2(sock);
+	}
 }
 
 void LoadGame(SOCKET sock)

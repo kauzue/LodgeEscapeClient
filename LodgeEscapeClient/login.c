@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 #include "login.h"
+#include "game.h"
 #include "system.h"
 
 int LoginMenu(SOCKET sock)
@@ -13,6 +14,7 @@ int LoginMenu(SOCKET sock)
     int y = 2;
     int msg_int;
     int players_num;
+    int s_num_players;
 
     char msg_char[MAX_MSG_LEN] = "";
 

@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="game.h" />
     <ClInclude Include="login.h" />
+    <ClInclude Include="story.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="winsock_client.h" />
   </ItemGroup>
@@ -136,6 +137,7 @@
     <ClCompile Include="game.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="story.c" />
     <ClCompile Include="system.c" />
     <ClCompile Include="winsock_client.c" />
   </ItemGroup>

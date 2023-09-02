@@ -227,17 +227,18 @@ int FindRoom(SOCKET sock)
 {
 	char msg_char[MAX_MSG_LEN] = "";
 	int msg_int;
+	int rooms_num;
 
-	recv(sock, &msg_int, sizeof(msg_int), 0);
+	recv(sock, &rooms_num, sizeof(rooms_num), 0);
 
-	if (msg_int == 0) {
+	if (rooms_num == 0) {
 		printf("현재 개설되어있는 방이 없습니다. \n");
 		system("pause");
 		return -1;
 	}
 
 	else {
-		for (int i = 0; i < msg_int; i++) {
+		for (int i = 0; i < rooms_num; i++) {
 			recv(sock, msg_char, sizeof(msg_char), 0);
 			printf("%d. 방 이름 : %s \n \n", i + 1, msg_char);
 		}
@@ -249,7 +250,7 @@ int FindRoom(SOCKET sock)
 
 	send(sock, &msg_int, sizeof(msg_int), 0);
 
-	if (msg_int < 0) {
+	if (msg_int < 0 || msg_int > rooms_num) {
 		return -1;
 	}
 

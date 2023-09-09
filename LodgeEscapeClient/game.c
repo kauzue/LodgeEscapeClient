@@ -289,7 +289,8 @@ void WaitRoom(SOCKET sock)
 	printf("플레이어를 기다리는 중 1/2");
 
 	recv(sock, &msg_int, sizeof(msg_int), 0);
-	printf("test.%d\n", msg_int);
+	system("cls");
+	printf("게임시작 \n");
 	system("pause");
 
 	send(sock, &rogin_player_num, sizeof(rogin_player_num), 0);
